@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Authentication</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        .login-card {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 { margin-bottom: 24px; font-weight: 600; text-align: center; color: #38bdf8; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 14px; color: #94a3b8; }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: #38bdf8; outline: none; }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0284c7;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover { background: #0369a1; }
+        .flash-messages {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-left: 4px solid #ef4444;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .footer-text a { color: #38bdf8; text-decoration: none; }
+        .footer-text a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>📷 Security Access</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Authenticate Session</button>
+        </form>
+
+        <div class="footer-text">
+            Don't have an account? <a href="/register">Register here</a>
+        </div>
+    </div>
+
+</body>
+</html>
